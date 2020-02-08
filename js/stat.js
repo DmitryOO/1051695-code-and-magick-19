@@ -46,18 +46,18 @@ window.renderStatistics = function (ctx, players, times) {
 
   var maxTime = getMaxElement(times);
 
-  var getPlayerColor = function (names) {
+  var getPlayerColor = function (names, i) {
     if (names[i] === 'Вы') {
       return YOUR_COLOR;
     }
     return 'hsl(240, ' + Math.floor(Math.random() * 100).toString(10) + '%, 25%)';
   };
 
-  var getColumn = function (names, results) {
+  var getColumn = function (names, results, i) {
     var playerGap = CLOUD_X + FONT_GAP_X + GAP + (FONT_GAP_X + GAP + TEXT_WIDTH) * i;
 
     ctx.fillText(names[i], playerGap, CLOUD_HEIGHT - FONT_GAP_X);
-    ctx.fillStyle = getPlayerColor(names);
+    ctx.fillStyle = getPlayerColor(names, i);
     ctx.fillRect(playerGap, CLOUD_Y + COLUMN_GAP_Y + TEXT_HEIGHT * 3, BAR_WIDTH, BAR_MAX_HEIGHT);
     ctx.fillStyle = WHITE_COLOR;
     ctx.fillRect(playerGap, CLOUD_Y + COLUMN_GAP_Y + TEXT_HEIGHT * 3, BAR_WIDTH, BAR_MAX_HEIGHT - BAR_MAX_HEIGHT * results[i] / maxTime);
@@ -66,6 +66,6 @@ window.renderStatistics = function (ctx, players, times) {
   };
 
   for (var i = 0; i < players.length; i++) {
-    getColumn(players, times);
+    getColumn(players, times, i);
   }
 };
